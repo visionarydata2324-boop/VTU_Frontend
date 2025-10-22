@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    --color1: #ADF802;
+    --color2: #4169E1;
+    --color3: #201E1E;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+.cl1{
+    background-color: var(--color1);
+}
+.cl2{
+    background-color: var(--color2);
+}
+.cl3{
+    background-color: var(--color3);
+}
+
+/* colors */
+.clr1{
+    color: var(--color1);
+}
+.clr2{
+    color: var(--color2);
+}
+.clr3{
+    color: var(--color3);
+}
+
+.hov:hover{
+    color: var(--color1);
+}
+
+.bd{
+    border-color: var(--color2);
+}
+.header{
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.27);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.7px);
+  -webkit-backdrop-filter: blur(6.7px);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+div:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+  }
+
+  .card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* width: 90%; */
+    max-width: 400px;
+  }
+
+  .icon-container {
+    margin-bottom: 1rem;
+  }
+
+  .spinner {
+    display: block;
+    height: 64px;
+    width: 64px;
+    margin: 0 auto;
+    color: #3b82f6; /* blue-500 */
+    animation: spin 1s linear infinite;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937; /* gray-800 */
+    margin-bottom: 0.5rem;
+  }
+
+  .description {
+    color: #4b5563; /* gray-600 */
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .opacity-25 {
+    opacity: 0.25;
+  }
+
+  .opacity-75 {
+    opacity: 0.75;
+  }
+
+.tab-list-container::-webkit-scrollbar {
+  height: 3px; /* horizontal scrollbar height */
+}
+.sidebarOverflow::-webkit-scrollbar {
+  width: 7px; /* horizontal scrollbar height */
+}
+
+.sidebarOverflow::-webkit-scrollbar-thumb {
+  background-color: #d6dce6; /* gray-400 */
+  border-radius: 5px;
+}
+.tab-list-container::-webkit-scrollbar-thumb {
+  background-color: #a6b7cf; /* gray-400 */
+  border-radius: 4px;
+}
+
+.tab-list-container::-webkit-scrollbar-track {
+  background: transparent;
+}

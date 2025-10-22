@@ -1,0 +1,30 @@
+newWindow.document.title = "Redirecting to Checkout...";
+  //   newWindow.document.body.innerHTML = `
+  //     <div style="display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif; background-color: #f9fafb;">
+  //       <div style="text-align: center; padding: 2rem 1.5rem; background-color: white; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 90%; max-width: 400px;">
+  //         <div style="margin-bottom: 1rem;">
+  //           <svg style="display: block; height: 64px; width: 64px; margin: 0 auto; color: #3b82f6; animation: spin 1s linear infinite;" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  //             <circle style="opacity: 0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+  //             <path style="opacity: 0.75;" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+  //           </svg>
+  //         </div>
+  //         <h2 style="font-size: 1.25rem; font-weight: 600; color: #1f2937; margin-bottom: 0.5rem;">
+  //           Redirecting to Checkout...
+  //         </h2>
+  //         <p style="color: #4b5563;">
+  //           Please wait while we take you to the secure payment page.
+  //         </p>
+  //       </div>
+
+  //       <style>
+  //         @keyframes spin {
+  //           0% { transform: rotate(0deg); }
+  //           100% { transform: rotate(360deg); }
+  //         }
+  //         svg {
+  //           animation: spin 1s linear infinite;
+  //         }
+  //       </style>
+  //     </div>
+  //   `;
+  // }

@@ -1,0 +1,60 @@
+{
+  "name": "vtu_app",
+  "version": "0.0.0",
+  "private": true,
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "keywords": [],
+  "homepage": "https://github.com/Abdulquadri-Mahmud/VTU_Frontend#readme",
+  "bugs": {
+    "url": "https://github.com/Abdulquadri-Mahmud/VTU_Frontend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdulquadri-Mahmud/VTU_Frontend.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "eslint.config.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@headlessui/react": "^2.2.0",
+    "@microsoft/fetch-event-source": "^2.0.1",
+    "@mui/joy": "^5.0.0-beta.51",
+    "@mui/material": "^6.4.8",
+    "@reduxjs/toolkit": "^2.6.1",
+    "aos": "^2.3.4",
+    "axios": "^1.8.4",
+    "framer-motion": "^12.6.3",
+    "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.542.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^6.28.0",
+    "redux-persist": "^6.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.13.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.11.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "vite": "^5.4.20"
+  }
+}
