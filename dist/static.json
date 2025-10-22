@@ -1,0 +1,9 @@
+// public/static.json
+{
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ]
+}
