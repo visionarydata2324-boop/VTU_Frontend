@@ -4,9 +4,12 @@ const BASE_URLS = {
   alternate: "https://backup-api.onrender.com", // second base url
 };
 
+
 let currentBaseUrl = localStorage.getItem("baseUrl") || BASE_URLS.default;
 
 export const getBaseUrl = () => currentBaseUrl;
+
+// console.log(getBaseUrl());
 
 export const setBaseUrl = (key) => {
   if (BASE_URLS[key]) {

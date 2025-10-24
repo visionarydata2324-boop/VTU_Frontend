@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { fetchEventSource } from "@microsoft/fetch-event-source";
-const API_BASE_URL = import.meta.env.API_BASE_URL || "https://vtu-xpwk.onrender.com";
+import { getBaseUrl } from "../../config";
 
 export default function WalletBalance() {
   const [balance, setBalance] = useState(null); // holds wallet balance
@@ -14,7 +14,7 @@ export default function WalletBalance() {
 useEffect(() => {
   const token = localStorage.getItem("authToken");
 
-  fetchEventSource(`${API_BASE_URL}/api/v1/wallet-balance/subscribe`, {
+  fetchEventSource(`${getBaseUrl()}/api/v1/wallet-balance/subscribe`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

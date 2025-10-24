@@ -66,7 +66,6 @@ export default function AppRoutes() {
 
         {/* Protected/User Dashboard Routes */}
         <Route element={<Private_Route />}>
-        </Route>
           <Route path="/profile" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="user-detail/change-password" element={<ChangePassword />} />
@@ -104,6 +103,7 @@ export default function AppRoutes() {
             <Route path='data-top-up/buy-now/make-payment/verify-payment' element={<VerifyPayment/>}/>
             <Route path='data-top-up/buy-now' element={<BuyDataNow/>}/>
           </Route>
+        </Route>
 
       </Routes>
     </Router>

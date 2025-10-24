@@ -6,6 +6,8 @@ import { getBaseUrl } from "../../../config";
 
 const token = localStorage.getItem("authToken");
 
+console.log(token);
+
 const UserProfile = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -34,7 +36,7 @@ const UserProfile = () => {
         });
   
         const data = await res.json();
-        // console.log(data);
+        console.log(data);
   
         if (!res.ok) {
           // If it's rate limiting, handle gracefully

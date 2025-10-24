@@ -58,22 +58,16 @@ const SignIn = () => {
 
       const data = await response.json();
 
-      // console.log(data)
+      console.log(data);
 
       // 🔹 Handle invalid response or missing token
-      if (!response.ok || data.status === 'error' || !data.token) {
+      if (!response.ok || data.error || !data.token) {
         const errorMsg = data.message || data.error || 'Invalid credentials';
 
         setError(errorMsg);
         setLoading(false);
         openModal();
-
-        // Redirect user if email not verified
-        // if (errorMsg.toLowerCase().includes('verify your email')) {
-        //   setTimeout(() => navigate('/verify-email'), 1000);
-        // }
-
-        // return;
+        return;
       }
 
       // 🔹 Save token in localStorage

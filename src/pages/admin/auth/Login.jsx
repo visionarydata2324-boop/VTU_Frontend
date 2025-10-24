@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { HiEye, HiEyeSlash } from 'react-icons/hi2'; // <-- from react-icons
+import { getBaseUrl } from '../../../config';
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -32,7 +33,7 @@ const AdminLogin = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post('/api/admin/login', formData);
+      const res = await axios.post(`${getBaseUrl()}/api/v1/login`, formData);
       console.log('Login success:', res.data);
       // Redirect or store token logic here
     } catch (err) {

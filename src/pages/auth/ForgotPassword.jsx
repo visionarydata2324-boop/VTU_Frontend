@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { getBaseUrl } from '../../config';
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState(localStorage.getItem('userEmail') || '');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const emailFromState = location.state?.email || localStorage.getItem('userEmail') || '';
+  const [email, setEmail] = useState(emailFromState);
   const [resetCode, setResetCode] = useState('');
   const [newPass, setNewPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
@@ -16,15 +19,16 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  console.log({resetCode, newPass, confirmPass, email})
-
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (emailFromState) localStorage.setItem('userEmail', emailFromState);
+  }, [emailFromState]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (newPass !== confirmPass) {
-      setDialogMessage('Passwords do not match!');
+      setIsSuccess(false);
+      setDialogMessage('Passwords do not match. Please confirm your password correctly.');
       setIsDialogOpen(true);
       return;
     }
@@ -33,7 +37,6 @@ export default function ForgotPassword() {
 
     try {
       setLoading(true);
-
       const response = await fetch(`${getBaseUrl()}/api/v1/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -42,23 +45,24 @@ export default function ForgotPassword() {
 
       const data = await response.json();
 
-      if (!response.ok || data.status === 'error') {
-        setIsSuccess(false);
-        if (data.errors) {
-          setDialogMessage(data.errors || 'Failed to reset password.');
-          return;
-        }else{
-          setDialogMessage(data.message || 'Failed to reset password.');
-        }
-      } else {
+      console.log(data);
+
+      if (response.ok && data.status === 'success') {
         setIsSuccess(true);
-        setDialogMessage(data.message);
+        setDialogMessage(data.message || 'Password reset successfully.');
         localStorage.removeItem('userEmail');
         navigate('/login');
+      } else {
+        setIsSuccess(false);
+        setDialogMessage(
+          data.message ||
+            data.error ||
+            'Unable to reset password. Please verify your code and try again.'
+        );
       }
     } catch (error) {
       setIsSuccess(false);
-      setDialogMessage(`Error resetting password: ${error.message}`);
+      setDialogMessage('An unexpected error occurred. Please try again later.');
     } finally {
       setIsDialogOpen(true);
       setLoading(false);
@@ -66,24 +70,51 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="">
+    <div className="bg-gray-50">
       <Header />
-      <div className="w-96 mx-auto my-20 p-5 shadow-lg rounded-lg bg-white">
-        <h2 className="text-xl font-bold mb-4 text-center">Forgot Password</h2>
+      <div className="w-full max-w-md my-20 md:p-8 p-4 mx-2 md:mx-0 shadow-lg rounded-lg bg-white">
+        <h2 className="text-xl font-bold mb-4 text-center">Reset Your Password</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 border rounded" required/>
-          <input type="number" placeholder="Reset Code" value={resetCode} onChange={(e) => setResetCode(e.target.value)} className="w-full p-2 border rounded" required/>
-          <input type="password" placeholder="New Password" value={newPass} onChange={(e) => setNewPass(e.target.value)} className="w-full p-2 border rounded" required/>
-          <input type="password" placeholder="Confirm New Password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} className="w-full p-2 border rounded" required/>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            disabled
+            className="w-full p-2 border rounded bg-gray-100 cursor-not-allowed text-gray-500"
+          />
+          <input
+            type="number"
+            placeholder="Reset Code"
+            value={resetCode}
+            onChange={(e) => setResetCode(e.target.value)}
+            className="w-full p-2 border rounded"
+            required
+          />
+          <input
+            type="password"
+            placeholder="New Password"
+            value={newPass}
+            onChange={(e) => setNewPass(e.target.value)}
+            className="w-full p-2 border rounded"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Confirm New Password"
+            value={confirmPass}
+            onChange={(e) => setConfirmPass(e.target.value)}
+            className="w-full p-2 border rounded"
+            required
+          />
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-500 transition"
+            disabled={loading}
           >
             {loading ? 'Resetting...' : 'Reset Password'}
           </button>
         </form>
 
-        {/* Success/Error Dialog */}
         <Transition appear show={isDialogOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -99,7 +130,8 @@ export default function ForgotPassword() {
                 {isSuccess ? 'Success' : 'Error'}
               </Dialog.Title>
               <p className="mt-2 text-gray-700">{dialogMessage}</p>
-              <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-500 transition"
+              <button
+                className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-500 transition"
                 onClick={() => setIsDialogOpen(false)}
               >
                 Close
