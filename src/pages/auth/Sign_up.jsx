@@ -5,8 +5,7 @@ import Header from '../../components/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import { Dialog, Transition } from '@headlessui/react';
-
-const API_BASE_URL = import.meta.env.API_BASE_URL || 'https://vtu-xpwk.onrender.com';
+import { getBaseUrl } from '../../config';
 
 const CreateAccountPage = () => {
   const [formData, setFormData] = useState({
@@ -53,12 +52,14 @@ const CreateAccountPage = () => {
 
     const { firstName, lastName, email, phone, password, confirmPassword } = formData;
 
+    // Validation checks
     if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
       setError('Please fill in all fields');
       setLoading(false);
       openModal();
       return;
     }
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
@@ -67,42 +68,37 @@ const CreateAccountPage = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/register`, {
+      const response = await fetch(`${getBaseUrl()}/api/v1/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, phone, password })
+        body: JSON.stringify({ firstName, lastName, email, phone, password }),
       });
 
       const data = await response.json();
-      // Check if the response is ok and if there's an error in the data
-      if (!response.ok || data.error) {
-        setError(data.error || 'Something went wrong');
-        
-        openModal();
-        setLoading(false);
+      // console.log(data);
 
-        if (data.error === 'Email already registered') {
-          setError('Email already registered. Please login or use a different email.');
-          setLoading(false);
-          openModal();
-          console.log(email);
-          localStorage.setItem('userEmail', email);
-          setTimeout(() => navigate("/login"), 2500);
-          return;
-        }
+      // If registration failed
+      if (!response.ok) {
+        setError(data.error || 'Something went wrong. Please try again.');
+        setLoading(false);
+        openModal();
         return;
       }
 
-      setSuccess(data.message);
-      setError(false);
+      // Registration successful
+      setSuccess(data.message || 'Registration successful!');
+      setError('');
       setLoading(false);
       openModal();
-      // Save email to localStorage
-      localStorage.setItem('userEmail', email);
-      setTimeout(() => navigate("/verify-email"), 1500);
+
+      // ⏳ Redirect to verify email page, passing email via route state
+      setTimeout(() => {
+        navigate('/verify-email', { state: { email } });
+      }, 1500);
 
     } catch (error) {
-      setError(error.message);
+      console.error('Registration Error:', error);
+      setError('Network error. Please check your connection and try again.');
       setLoading(false);
       openModal();
     }

@@ -1,6 +1,6 @@
 // src/config.js
 const BASE_URLS = {
-  default: "https://vtu-xpwk.onrender.com",
+  default: "https://vtu-backend-uqmx.onrender.com",
   alternate: "https://backup-api.onrender.com", // second base url
 };
 

@@ -4,8 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-
-const API_BASE_URL = import.meta.env.API_BASE_URL || 'https://vtu-xpwk.onrender.com';
+import { getBaseUrl } from '../../config';
 
 export default function ResetPassword() {
     const [password, setPassword] = useState('');
@@ -31,7 +30,7 @@ export default function ResetPassword() {
 
         try {
             setLoading(true);
-            const response = await fetch(`${API_BASE_URL}/api/v1/reset-password`, {
+            const response = await fetch(`${getBaseUrl()}/api/v1/reset-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password }),

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { useNavigate } from 'react-router-dom';
+import { getBaseUrl } from '../../config';
 
-const API_BASE_URL = import.meta.env.API_BASE_URL || 'https://vtu-xpwk.onrender.com';
 const VerifyAccount = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -25,13 +25,14 @@ const VerifyAccount = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/verify-account`, {
+      const response = await fetch(`${getBaseUrl()}/api/v1/verify-account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       });
 
       const data = await response.json();
+      console.log(data)
       
       if (data.status === 'error') {
         setError(data.message);

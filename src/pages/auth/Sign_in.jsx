@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDispatch } from 'react-redux';
 import { signinSuccess } from '../../store/userReducers';
+import { getBaseUrl } from '../../config';
 
 const SignIn = () => {
   const [email, setEmail] = useState(''); 
@@ -49,7 +50,7 @@ const SignIn = () => {
     setSuccess('');
 
     try {
-      const response = await fetch(`https://vtu-xpwk.onrender.com/api/v1/login`, {
+      const response = await fetch(`${getBaseUrl()}/api/v1/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -57,28 +58,41 @@ const SignIn = () => {
 
       const data = await response.json();
 
-      if (data.status === 'error' || !data.token || !response.ok) {
-        setError(data || 'Invalid response');
-        if (data === 'Please verify your email address first') {
-          setTimeout(() => navigate('/verify-email'), 1000);
-        }
+      // console.log(data)
+
+      // 🔹 Handle invalid response or missing token
+      if (!response.ok || data.status === 'error' || !data.token) {
+        const errorMsg = data.message || data.error || 'Invalid credentials';
+
+        setError(errorMsg);
         setLoading(false);
         openModal();
-        return;
+
+        // Redirect user if email not verified
+        // if (errorMsg.toLowerCase().includes('verify your email')) {
+        //   setTimeout(() => navigate('/verify-email'), 1000);
+        // }
+
+        // return;
       }
 
-      // ✅ Save token separately
-      localStorage.setItem("authToken", data.token);
+      // 🔹 Save token in localStorage
+      localStorage.setItem('authToken', data.token);
 
+      // 🔹 Dispatch Redux action
       dispatch(signinSuccess(data));
 
+      // 🔹 Show success modal
       setSuccess('Login successful!');
       setLoading(false);
       openModal();
+
+      // 🔹 Redirect to profile page
       setTimeout(() => navigate('/profile'), 1000);
+
     } catch (err) {
-      console.error('Error in sign-in:', err.message);
-      setError('An error occurred. Please try again.');
+      console.error('Error during login:', err.message);
+      setError('An unexpected error occurred. Please try again.');
       setLoading(false);
       openModal();
     }
