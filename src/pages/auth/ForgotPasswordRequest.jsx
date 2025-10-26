@@ -36,7 +36,7 @@ export default function ForgotPasswordRequest() {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       if (!response.ok || data.status === 'error') {
         // ❌ If API returns error

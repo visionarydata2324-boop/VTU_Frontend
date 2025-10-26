@@ -7,6 +7,8 @@ import Footer from '../../components/Footer';
 import { Dialog, Transition } from '@headlessui/react';
 import { getBaseUrl } from '../../config';
 
+console.log(getBaseUrl());
+
 const CreateAccountPage = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -155,45 +157,47 @@ const CreateAccountPage = () => {
             </div>
 
             {/* ✅ Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="example@example.com"
-                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                data-aos="fade-right"
-              />
-            </div>
+            <div className="gird grid-cols-2">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="example@example.com"
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                  data-aos="fade-right"
+                />
+              </div>
 
-            {/* ✅ Phone */}
-            <div>
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Phone
-              </label>
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                placeholder="e.g. 08012345678"
-                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                data-aos="fade-left"
-              />
+              {/* ✅ Phone */}
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  placeholder="e.g. 08012345678"
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                  data-aos="fade-left"
+                />
+              </div>
             </div>
 
             {/* ✅ Password */}
